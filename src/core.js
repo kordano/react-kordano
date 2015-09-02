@@ -1,10 +1,11 @@
-var Router = require('react-router-component');
-
 var model = {views: [{text: 'home', url: "#/"},
                      {text: 'articles', url: "#/articles"},
                      {text: 'projects', url: "#/projects"},
                      {text: 'about', url: "#/about"}],
-             welcome: "Welcome"};
+             welcome: "Welcome"}; 
+
+
+console.log("Greetings Lord Kordano");
 
 var navView = React.createClass({
   render : function() {
@@ -25,8 +26,6 @@ var indexView = React.createClass({
   }
 });
 
-
 var navbar = createNav();
 var container = document.getElementById('nav-container');
 React.render(navbar, container);
-
