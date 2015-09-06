@@ -15,14 +15,13 @@ module.exports = function(grunt) {
         }
       }
     },
-    
     concat: {
       dist :{
         src: [
           'src/core.js',
           'src/libs/*.js'
         ],
-        dest: 'js/kordano.js'
+        dest: 'js/global.js'
       }
     },
     uglify: {
@@ -41,10 +40,13 @@ module.exports = function(grunt) {
         }
       }
     },
+     browserify: {
+      'js/kordano.js': ['js/global.js']
+     },
     watch: {
       scripts: {
         files: ["src/*.js"],
-        tasks: ['concat', 'uglify'],
+        tasks: ['concat', 'browserify'],
         options: {
           spawn: false,
           livereload: true
@@ -61,11 +63,12 @@ module.exports = function(grunt) {
     }
   });
   
+  grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-express');
-  grunt.registerTask('default', ['concat', 'uglify', 'sass', 'watch']);
+  grunt.registerTask('default', ['concat', 'browserify', 'uglify', 'sass']);
   grunt.registerTask('dev', ['express', 'watch']);
 };

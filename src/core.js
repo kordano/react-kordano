@@ -1,9 +1,12 @@
+var yarr = require('yarr.js');
+
 var model = {views: [{text: 'home', url: "#/"},
                      {text: 'articles', url: "#/articles"},
                      {text: 'projects', url: "#/projects"},
                      {text: 'about', url: "#/about"}],
              welcome: "Welcome"}; 
 
+var mainContainer = document.getElementById('main-container');
 
 console.log("Greetings Lord Kordano");
 
@@ -26,6 +29,13 @@ var indexView = React.createClass({
   }
 });
 
+function createIndex() {
+  return React.createElement(indexView, {data: model});
+}
+
 var navbar = createNav();
-var container = document.getElementById('nav-container');
-React.render(navbar, container);
+var navContainer = document.getElementById('nav-container');
+React.render(navbar, navContainer);
+
+var index = createIndex();
+React.reander(index, mainContainer);
