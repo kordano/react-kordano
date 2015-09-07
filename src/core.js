@@ -1,34 +1,39 @@
-var yarr = require('yarr.js');
-var React = require('react');
-var Link = require('yarr.js').Link;
-
-var model = {views: [{text: 'home', url: "#/"},
-                     {text: 'articles', url: "#/articles"},
-                     {text: 'projects', url: "#/projects"},
-                     {text: 'about', url: "#/about"}],
-             welcome: "The Cloud awaits!",
-             articles: "Code that reaches the sky!",
-             container: {
-               main: document.getElementById('main-container')
-             }}; 
-
-var mainContainer = document.getElementById('main-container');
+var React = require('react'),
+    Router = require('director').Router,
+    model = {
+      views: [{text: 'home', url: "#/"},
+              {text: 'articles', url: "#/articles"},
+              {text: 'projects', url: "#/projects"},
+              {text: 'about', url: "#/about"}],
+      welcome: "The Cloud awaits!",
+      articles: "Code that reaches the sky!"},
+    app = {
+      container: {
+        main: document.getElementById('main-container'),
+        nav: document.getElementById('nav-container')
+      },
+      routes: {
+        '/': landing,
+        '/articles': articles
+      }
+    },
+    router = Router(app.routes);
 
 console.log("Greetings Lord Kordano!");
-
 
 // --- NAVIGATION ---
 var navView = React.createClass({
   render : function() {
     var navList = this.props.data.views.map(function (n) {
-      return React.createElement(Link, {href: n.url, className: 'nav-entry'}, n.text); 
+      return React.DOM.a({href: n.url, className: 'nav-entry'}, n.text); 
     });
     return React.DOM.nav(null, navList);
   }
 });
 
 function createNav() {
-  return React.createElement(navView, {data: model});
+  var navbar = React.createElement(navView, {data: model});
+  React.render(navbar, app.container.nav);
 }
 
 // --- LANDING ---
@@ -38,11 +43,10 @@ var landingView = React.createClass({
   }
 });
 
-yarr('/', function() {
+var landing = function createLanding() {
   var landing = React.createElement(landingView, {data: model});
-  React.render(landing, mainContainer);
-});
-
+  React.render(landing, app.container.main);
+}
 // --- ARTICLES ---
 var articlesView = React.createClass({
   render : function() {
@@ -50,12 +54,11 @@ var articlesView = React.createClass({
   }
 });
 
-yarr('/articles', function() {
+var articles = function createArticles() {
   var articles = React.createElement(articlesView, {data: model});
-  React.render(articles, mainContainer);
-});
+  React.render(articles, app.container.main);
+};
 
 // --- BUILDING ---
-var navbar = createNav();
-var navContainer = document.getElementById('nav-container');
-React.render(navbar, navContainer);
+createNav();
+router.init();
