@@ -1,24 +1,14 @@
 var React = require('react'),
     Router = require('director').Router,
+    Marked = require('react-marked'),
+    XMLHttp = new XMLHttpRequest(),
     model = {
       views: [{text: 'home', url: "#/"},
               {text: 'articles', url: "#/articles"},
               {text: 'projects', url: "#/projects"},
               {text: 'about', url: "#/about"}],
       welcome: "The Cloud awaits!",
-      articles: "Code that reaches the sky!"},
-    app = {
-      container: {
-        main: document.getElementById('main-container'),
-        nav: document.getElementById('nav-container')
-      },
-      routes: {
-        '/': landing,
-        '/articles': articles
-      }
-    },
-    router = Router(app.routes);
-
+      articles: "Code that reaches the sky!"};
 console.log("Greetings Lord Kordano!");
 
 // --- NAVIGATION ---
@@ -50,15 +40,36 @@ var landing = function createLanding() {
 // --- ARTICLES ---
 var articlesView = React.createClass({
   render : function() {
-    return React.DOM.h2(null, this.props.data.articles);
+    return React.DOM.div(null, Marked(this.props.data));
   }
 });
 
 var articles = function createArticles() {
-  var articles = React.createElement(articlesView, {data: model});
-  React.render(articles, app.container.main);
+  XMLHttp.onreadystatechange = function() {
+    if (XMLHttp.readyState == 4 && XMLHttp.status == 200) {
+      var article = XMLHttp.responseText;
+      var articles = React.createElement(articlesView, {data: article});
+      React.render(articles, app.container.main);
+    }
+  };
+  XMLHttp.open("GET", "/data/posts/first.md", true);
+  XMLHttp.send();
 };
 
 // --- BUILDING ---
+var app = {
+      container: {
+        main: document.getElementById('main-container'),
+        nav: document.getElementById('nav-container')
+      },
+      routes: {
+        '/': landing,
+        '/articles': articles
+      }
+    },
+    router = Router(app.routes);
+
 createNav();
 router.init();
+document.location = "#/";
+
