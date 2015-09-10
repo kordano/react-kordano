@@ -9,7 +9,8 @@
     "react-router-component": "~0.26.0",
     "tiny-lr": "~0.1.6",
     "director": "~1.2.8",
-    "react-marked": "~0.3.1"
+    "react-marked": "~0.3.1",
+    "marked": "~0.3.5"
   },
   "devDependencies": {
     "grunt": "~0.4.5",
