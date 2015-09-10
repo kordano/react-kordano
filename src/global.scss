@@ -4,6 +4,7 @@
     }
 
 /* #2aa198 #AC2475 #2E688A #B43C50; */
+
 $green0: #38a861;
 $blue0: #2e688a;
 $grey0: #a4a4a4;
@@ -54,12 +55,13 @@ body{
       }
 }
 
-.home-item{
+#home-item{
     font-weight : bold;
     color: $green0;
+    &:hover{
+        color: white; 
+    }
 }
-
-
 
 /* POST */
 .post-header{
@@ -150,7 +152,7 @@ a:hover{
 	margin: 0;
 	width: 100%;
     }
-    .home-item{
+    #home-item{
 	font-weight: normal;
     }
     .navbar {
