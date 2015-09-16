@@ -1,75 +1,105 @@
 var React = require('react'),
     Router = require('director').Router,
-    Marked = require('react-marked'),
+    Marked = require('marked'),
     XMLHttp = new XMLHttpRequest(),
     model = {
-      views: [{text: 'home', url: "#/"},
-              {text: 'articles', url: "#/articles"},
+      views: [{text: 'articles', url: "#/articles"},
               {text: 'projects', url: "#/projects"},
               {text: 'about', url: "#/about"}],
-      welcome: "The Cloud awaits!",
-      articles: "Code that reaches the sky!"};
+      welcome: "Creating the future Cloud!",
+      articles: "Code that reaches the sky!"},
+    footerContainer = document.getElementById('footer-container'),
+    contentContainer = document.getElementById('content-container'),
+    navContainer = document.getElementById('nav-container');
+
 console.log("Greetings Lord Kordano!");
 
 // --- NAVIGATION ---
 var navView = React.createClass({
   render : function() {
     var navList = this.props.data.views.map(function (n) {
-      return React.DOM.a({href: n.url, className: 'nav-entry'}, n.text); 
+      return React.DOM.a({href: n.url, className: 'nav-item'}, n.text);
     });
-    return React.DOM.nav(null, navList);
+    return React.DOM.div({id: "sub-nav"},
+                         React.DOM.a({href: "#/", id: "home-item", className: "nav-item"}, "Konrad Kühne"),
+                         navList);
   }
 });
 
 function createNav() {
   var navbar = React.createElement(navView, {data: model});
-  React.render(navbar, app.container.nav);
+  React.render(navbar, navContainer);
+}
+
+// --- FOOTER ---
+
+var footerView = React.createClass({
+  render: function() {
+    return React.DOM.div({id: "footer"}, "Impressum");
+  }
+});
+
+function createFooter() {
+  var footer = React.createElement(footerView, {data: model});
+  React.render(footer, footerContainer);
 }
 
 // --- LANDING ---
 var landingView = React.createClass({
   render : function() {
-    return React.DOM.h1(null, this.props.data.welcome);
+    return React.DOM.div({className: "header"},
+                        React.DOM.p({className: "sub-header"}, this.props.data.welcome));
   }
 });
 
 var landing = function createLanding() {
   var landing = React.createElement(landingView, {data: model});
-  React.render(landing, app.container.main);
-}
+  React.render(landing, contentContainer);
+};
+
 // --- ARTICLES ---
 var articlesView = React.createClass({
+  loadMarkdownFromServer: function(state) {
+     XMLHttp.onreadystatechange = function() {
+       if (XMLHttp.readyState == 4 && XMLHttp.status == 200) {
+         console.log("Fetching: " + this.responseURL);
+         var incomingText= XMLHttp.responseText;
+         article = Marked(incomingText);
+         state.setState({currentArticle: article});
+      }
+    };
+    XMLHttp.open("GET", "/data/posts/first.md", true);
+    XMLHttp.send();
+  },
+  getInitialState: function() {
+    return {currentArticle: ""};
+  },
+  componentDidMount: function() {
+    this.loadMarkdownFromServer(this);
+  },
   render : function() {
-    return React.DOM.div(null, Marked(this.props.data));
+    return React.DOM.div({
+      className: "content",
+      dangerouslySetInnerHTML: {
+        __html: this.state.currentArticle
+      }
+    });
   }
 });
 
 var articles = function createArticles() {
-  XMLHttp.onreadystatechange = function() {
-    if (XMLHttp.readyState == 4 && XMLHttp.status == 200) {
-      var article = XMLHttp.responseText;
-      var articles = React.createElement(articlesView, {data: article});
-      React.render(articles, app.container.main);
-    }
-  };
-  XMLHttp.open("GET", "/data/posts/first.md", true);
-  XMLHttp.send();
+    var articles = React.createElement(articlesView, {data: model});
+    React.render(articles, contentContainer);
 };
 
 // --- BUILDING ---
-var app = {
-      container: {
-        main: document.getElementById('main-container'),
-        nav: document.getElementById('nav-container')
-      },
-      routes: {
-        '/': landing,
-        '/articles': articles
-      }
+var routes = {
+      '/': landing,
+      '/articles': articles
     },
-    router = Router(app.routes);
+    router = Router(routes);
 
 createNav();
+createFooter();
 router.init();
 document.location = "#/";
-
