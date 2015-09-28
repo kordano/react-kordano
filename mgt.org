@@ -1,0 +1,28 @@
+#+TITLE: react-kordano
+#+CATEGORY: react-kordano
+#+STARTUP: overview
+#+STARTUP: hidestars
+* TASKS
+* INFO
+** Use Cases
+*** Overview recent posts
+*** Detail view of clicked post
+*** Switch to 'about' view
+*** Switch to 'services' view 
+*** Mouse-over on profile picture 
+- shows hidden personal details
+** Technologies
+- React
+- markdown
+- routing
+- backend node server that converts improved markdown to json 
+** Limitations
+- no server access or configuration
+- no api
+- absolute paths only
+** Data Model
+*** post
+- header
+- text
+*** about
+*** services
