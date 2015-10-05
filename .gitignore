@@ -3,3 +3,4 @@ js
 target
 .sass-cache
 css/*.css*
+dist/*.js
