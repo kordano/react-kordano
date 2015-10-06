@@ -1,23 +1,14 @@
 import React from "react";
+import Router, {Route, DefaultRoute} from "react-router";
+import App from "./components/App";
 import Frontpage from "./components/Frontpage";
-import {List,Map} from "immutable";
+import About from "./components/About"
 
-console.log("Greetings puny human!");
+const contentContainer = document.getElementById("content-container");
+const defaultRoute = React.createElement(DefaultRoute, {handler: Frontpage});
+const aboutRoute = React.createElement(Route, {handler: About, path: "about"});
+const routes = React.createElement(Route, {handler: App}, aboutRoute, defaultRoute);
 
-const posts = List(
-  [Map(
-    {title: "Title 1",
-     abstract: "ababababababa",
-     date: "2015-01-02"
-    }),
-   Map({title: "Title 2",
-        abstract: "bcbcbcbcbcbc",
-        date: "2015-02-04"}
-      )
-  ]
-);
-
-React.render(
-  React.createElement(Frontpage, {posts: posts}),
-  document.getElementById("content-container")
-);
+Router.run(routes, (Root) => {
+  React.render(React.createElement(Root), contentContainer)
+})  
