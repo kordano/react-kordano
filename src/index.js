@@ -1,3 +1,4 @@
+import "./global.scss"
 import React from "react";
 import Router, {Route, DefaultRoute} from "react-router";
 import App from "./components/App";

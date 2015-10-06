@@ -12,11 +12,17 @@ module.exports = {
     filename: "bundle.js"
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: "react-hot!babel"
-    }]
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: "react-hot!babel"
+      },
+      {
+        test: /\.scss$/,
+        loader: "style!css!sass"
+      }
+    ]
   },
   resolve: {
     extensions: ["", ".js", ".jsx"]
