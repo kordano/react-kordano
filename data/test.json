@@ -1,1 +1,7 @@
-{:}
+{
+    recentPosts: [
+        {title: "title1", abstract: "ababababa", date: "2015-01-01"},
+        {title: "title2", abstract: "cdcdcdcdc", date: "2015-01-02"},
+        {title: "title3", abstract: "efefefefe", date: "2015-01-03"}
+    ]
+}

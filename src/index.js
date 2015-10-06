@@ -4,10 +4,18 @@ import {List,Map} from "immutable";
 
 console.log("Greetings puny human!");
 
-const posts = List([Map({title: "oh my gosh, it's jolly, jumpy, spiffy",
-                         abstract: "The title says it all!"}),
-                    Map({title: "Sad story",
-                         abstract: "I lied, not sad at all..."})]);
+const posts = List(
+  [Map(
+    {title: "Title 1",
+     abstract: "ababababababa",
+     date: "2015-01-02"
+    }),
+   Map({title: "Title 2",
+        abstract: "bcbcbcbcbcbc",
+        date: "2015-02-04"}
+      )
+  ]
+);
 
 React.render(
   React.createElement(Frontpage, {posts: posts}),
