@@ -23,9 +23,16 @@ const about = Map({
   content: "What can I know? What should I do? What may I hope?"
 });
 
+const views = List([
+  Map({title: "home", link: "#/"}),
+  Map({title: "about", link: "#/about"})
+]);
+
+
+
 export default React.createClass({
   render: function() {
-    const data = {posts: posts.toJS(), about: about.toJS()};
+    const data = {posts: posts.toJS(), about: about.toJS(), views: views.toJS()};
     return React.createElement(RouteHandler, data);
   }
 });

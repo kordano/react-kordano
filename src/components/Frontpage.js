@@ -1,4 +1,5 @@
 import React from "react/addons";
+import Nav from "./Nav";
 import Post from "./Post";
 
 export default React.createClass({
@@ -7,7 +8,9 @@ export default React.createClass({
     return React.createElement(Post, post)
   },
   render: function() {
-    const posts = this.props.posts.map(this.createPost)
-    return React.DOM.ul({className: "frontposts"}, posts);
+    const posts = this.props.posts.map(this.createPost);
+    const nav = React.createElement(Nav, {views: this.props.views});
+    const frontposts = React.DOM.ul({className: "frontposts"}, posts);
+    return React.DOM.div(null, nav, frontposts);
   }
 });

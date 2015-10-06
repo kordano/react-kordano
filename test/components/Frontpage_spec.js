@@ -11,7 +11,7 @@ function createDate(dateString) {
 
 describe("Frontpage", () => {
 
-  it("renders a list of frontposts", () => {
+  it("renders a list of posts", () => {
     const data = {
       posts: [
         {
@@ -23,7 +23,11 @@ describe("Frontpage", () => {
           title: "title2",
           abstract: "abstract2",
           date: createDate("1970-01-02")
-        }
+        },
+      ],
+      views: [
+        {title: "home", link: "#/home"},
+        {title: "about", link: "#/about"}
       ]};
     const component = renderIntoDocument(React.createElement(FrontPage, data));
     const frontpage = scryRenderedDOMComponentsWithTag(component, "ul");

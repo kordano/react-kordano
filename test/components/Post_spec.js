@@ -10,7 +10,7 @@ function createDate(dateString) {
   return new Date(dateString);
 }
 
-describe("Frontpost", () => {
+describe("Post", () => {
   it("renders title and abstract of a frontpost", () => {
     const postData = {
       title: "title1",
