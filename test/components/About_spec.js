@@ -1,5 +1,5 @@
 import React from "react/addons";
-import About from "../../src/components/About"
+import {About} from "../../src/components/About"
 import {expect} from "chai";
 
 const {renderIntoDocument,
@@ -16,5 +16,7 @@ describe("About", () => {
     
     expect(view[0].props.children.length).to.equal(2);
     expect(view[0].props.children[1].props.children.length).to.equal(2);
+
+    // TODO: check if title and content are displayed correctly!
   })
 })

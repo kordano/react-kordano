@@ -2,7 +2,8 @@ import React from "react/addons";
 
 export default React.createClass({
   mixins: [React.addons.PureRenderMixin],
-  delay: function(date) {
+  delay: function(dateString) {
+    const date = new Date(dateString);
     const today = new Date();
     const diff = Math.floor((today - date) / (3600000 * 24));
     return diff;

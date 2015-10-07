@@ -1,8 +1,11 @@
 import React from "react/addons";
+import {connect} from "react-redux";
 import Nav from "./Nav";
 import Post from "./Post";
+import {toJS} from "immutable"
+import * as actionCreators from "../action_creators";
 
-export default React.createClass({
+export const Frontpage = React.createClass({
   mixins: [React.addons.PureRenderMixin],
   createPost: function(post) {
     return React.createElement(Post, post)
@@ -14,3 +17,15 @@ export default React.createClass({
     return React.DOM.div(null, nav, frontposts);
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    posts: state.getIn(["views", "frontpage", "data", "posts"]),
+    views: state.getIn(["views"]).mapEntries(([_, value]) => value.deleteIn(["data"]))
+  }
+}
+
+export const FrontpageContainer = connect(
+  mapStateToProps,
+  actionCreators
+)(Frontpage)

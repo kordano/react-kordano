@@ -1,5 +1,5 @@
 import React from "react/addons";
-import FrontPage from "../../src/components/Frontpage"
+import {Frontpage} from "../../src/components/Frontpage"
 import {expect} from "chai";
 
 const {renderIntoDocument,
@@ -28,10 +28,11 @@ describe("Frontpage", () => {
       views: [
         {title: "home", link: "#/home"},
         {title: "about", link: "#/about"}
-      ]};
-    const component = renderIntoDocument(React.createElement(FrontPage, data));
+      ]
+    };
+    const component = renderIntoDocument(React.createElement(Frontpage, data));
     const frontpage = scryRenderedDOMComponentsWithTag(component, "ul");
     expect(frontpage[0].props.children.length).to.equal(2);
-  })
+  });
   
- });
+});

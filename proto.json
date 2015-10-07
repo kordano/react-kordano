@@ -1,0 +1,34 @@
+{
+    "views": {
+        "frontpage": {
+            "title": "Frontpage",
+            "key": "12345",
+            "route": "/",
+            "data": {
+                "posts": [
+                    {
+                        "title": "abc",
+                        "abstract": "abcabcabc",
+                        "key": "112233",
+                        "date": "2015-10-07"
+                    },
+                    {
+                        "title": "bcd",
+                        "abstract": "bcdbcdbcd",
+                        "key": "223344",
+                        "date": "2015-10-08"
+                    }
+                ]
+            }
+        },
+        "about": {
+            "title": "About",
+            "key": "23456",
+            "route": "#/about",
+            "data": {
+                "header": "About me",
+                "content": "What can I know? What should I do? What may I hope?"
+            }
+        }
+    }
+}
