@@ -14,7 +14,7 @@ describe("Nav", () => {
     ];
     const component = renderIntoDocument(React.createElement(Nav, {views: views}));
     const nav = scryRenderedDOMComponentsWithTag(component, "nav");
-    
+
     expect(nav[0].props.children.length).to.equal(2);
-  })
+  });
 })

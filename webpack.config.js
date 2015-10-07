@@ -7,7 +7,7 @@ module.exports = {
     "./src/index.js"
   ],
   output: {
-    path: __dirname + "/dist",
+    path: __dirname,
     publicPath: "/",
     filename: "bundle.js"
   },
@@ -28,7 +28,7 @@ module.exports = {
     extensions: ["", ".js", ".jsx"]
   },
   devServer: {
-    contentBase: "./dist",
+    contentBase: "./",
     "hot": true
   },
   plugins: [
